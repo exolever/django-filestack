@@ -1,0 +1,6 @@
+# Additional requirements go here
+django-extensions
+git+https://github.com/coleifer/django-generic-m2m.git
+django-model-utils
+factory-boy
+Faker
