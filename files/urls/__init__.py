@@ -1,5 +1,7 @@
 from django.conf.urls import url
 
+app_name = 'files'
+
 from ..views import uploaded_file
 
 urlpatterns = [

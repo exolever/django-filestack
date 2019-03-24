@@ -3,9 +3,10 @@ import unicodedata
 
 from django.db import models
 from django.conf import settings
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 from django_extensions.db.fields import AutoSlugField
-from genericm2m.models import RelatedObjectsDescriptor
 from model_utils.models import TimeStampedModel
 
 from ..helpers import UPLOADED_FILE_VERSIONED_MIMETYPE, DEFAULT_MIMETYPE
@@ -17,13 +18,15 @@ class UploadedFile(
         UploadedFilePermissionMixin,
         TimeStampedModel):
 
-    _related = RelatedObjectsDescriptor()
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='%(app_label)s_%(class)s_related',
         null=True, blank=True,
     )
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    related = GenericForeignKey('content_type', 'object_id')
     filename = models.CharField(max_length=255)
     filename_slug = AutoSlugField(
         populate_from='filename',
@@ -42,7 +45,7 @@ class UploadedFile(
     @property
     def owner(self):
         """This object is associated only with 1 object"""
-        return self.related[0]
+        return self.created_by
 
     @property
     def url(self):
@@ -59,10 +62,6 @@ class UploadedFile(
     @property
     def latest(self):
         return self.versions.first()
-
-    @property
-    def related(self):
-        return self._related.all().generic_objects()
 
     @property
     def filename_sanitized(self):
@@ -84,7 +83,8 @@ class UploadedFile(
         return mimetype
 
     def link_file(self, object_to_link_with):
-        self._related.connect(object_to_link_with)
+        self.related = object_to_link_with
+        self.save()
 
     def get_download_url(self, user):
         self.owner.can_view_uploaded_file(user)
@@ -105,3 +105,19 @@ class UploadedFile(
             filestack_url=url,
         )
         new_version.save()
+
+    @classmethod
+    def create(cls, created_by, filename, mimetype, filestack_url, filestack_status, related_to):
+        instance = cls(
+            created_by=created_by,
+            filename=filename,
+            mimetype=mimetype,
+            related=related_to)
+        instance.save()
+        instance.create_version(
+            url=filestack_url,
+            status=filestack_status,
+            user=created_by,
+            related_to=related_to,
+        )
+        return instance

@@ -1,5 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+from django.core.exceptions import ObjectDoesNotExist
 
 from ...exceptions import UploadFileException
 
@@ -12,15 +12,6 @@ class UploadedFileViewMixin:
 
         try:
             RelatedClass = ContentType.objects.get(model__iexact=class_name)
-
-        except MultipleObjectsReturned as e:
-            if class_name == 'post':
-                RelatedClass = ContentType.objects.get(
-                    model__iexact=class_name,
-                    app_label='forum',
-                )
-            else:
-                raise e
 
         except ContentType.DoesNotExist:
             raise UploadFileException(
