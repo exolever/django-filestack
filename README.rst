@@ -2,28 +2,28 @@
 Django Filestack
 =============================
 
-.. image:: https://badge.fury.io/py/django_filestack.svg
-    :target: https://badge.fury.io/py/django_filestack
+.. image:: https://badge.fury.io/py/django-filestack.svg
+    :target: https://badge.fury.io/py/django-filestack
 
-.. image:: https://travis-ci.org/tomasgarzon/django_filestack.svg?branch=master
-    :target: https://travis-ci.org/tomasgarzon/django_filestack
+.. image:: https://travis-ci.org/tomasgarzon/django-filestack.svg?branch=master
+    :target: https://travis-ci.org/tomasgarzon/django-filestack
 
-.. image:: https://codecov.io/gh/tomasgarzon/django_filestack/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/tomasgarzon/django_filestack
+.. image:: https://codecov.io/gh/tomasgarzon/django-filestack/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/tomasgarzon/django-filestack
 
 Add Model support for Filestack files
 
 Documentation
 -------------
 
-The full documentation is at https://django_filestack.readthedocs.io.
+The full documentation is at https://django-filestack.readthedocs.io.
 
 Quickstart
 ----------
 
 Install Django Filestack::
 
-    pip install django_filestack
+    pip install django-filestack
 
 Add it to your `INSTALLED_APPS`:
 
