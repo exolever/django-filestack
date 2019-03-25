@@ -173,7 +173,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'django_filestackdoc'
+htmlhelp_basename = 'django-filestackdoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -192,7 +192,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'django_filestack.tex', u'Django Filestack Documentation',
+  ('index', 'django-filestack.tex', u'Django Filestack Documentation',
    u'Tomas', 'manual'),
 ]
 
@@ -222,7 +222,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'django_filestack', u'Django Filestack Documentation',
+    ('index', 'django-filestack', u'Django Filestack Documentation',
      [u'Tomas'], 1)
 ]
 
@@ -236,8 +236,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'django_filestack', u'Django Filestack Documentation',
-   u'Tomas', 'django_filestack', 'One line description of project.',
+  ('index', 'django-filestack', u'Django Filestack Documentation',
+   u'Tomas', 'django-filestack', 'One line description of project.',
    'Miscellaneous'),
 ]
 

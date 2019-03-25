@@ -48,7 +48,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author='Tomas',
     author_email='tomas@openexo.com',
-    url='https://github.com/exolever/django_filestack',
+    url='https://github.com/exolever/django-filestack',
     packages=[
         'files',
     ],
@@ -56,7 +56,7 @@ setup(
     install_requires=[],
     license="BSD",
     zip_safe=False,
-    keywords='django_filestack',
+    keywords='django-filestack',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Framework :: Django :: 1.11',

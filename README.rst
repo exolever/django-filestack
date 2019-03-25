@@ -14,7 +14,7 @@ Django Filestack
 
 .. image:: https://codecov.io/gh/exolever/django-filestack/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/exolever/django-filestack
-    
+
 .. image:: https://sonarcloud.io/api/project_badges/measure?project=exolever_django-filestack&metric=alert_status
    :target: https://sonarcloud.io/dashboard?id=exolever_django-filestack
 

@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 """
-test_django_filestack
+test_django-filestack
 ------------
 
-Tests for `django_filestack` models module.
+Tests for `django-filestack` models module.
 """
 
 from django.test import TestCase
