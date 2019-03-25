@@ -43,7 +43,7 @@ history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
     name='django_filestack',
-    version='0.1.0',
+    version='0.1.1',
     description="""Add Model support for Filestack files""",
     long_description=readme + '\n\n' + history,
     author='Tomas',
