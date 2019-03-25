@@ -4,11 +4,14 @@ from django.urls import reverse
 
 from model_utils.models import TimeStampedModel
 
-from utils.models import CreatedByMixin
 
-
-class UploadedFileVersion(CreatedByMixin, TimeStampedModel):
-
+class UploadedFileVersion(TimeStampedModel):
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='%(app_label)s_%(class)s_related',
+        null=True, blank=True,
+    )
     uploaded_file = models.ForeignKey(
         'UploadedFile',
         on_delete=models.CASCADE,

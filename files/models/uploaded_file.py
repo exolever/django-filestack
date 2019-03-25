@@ -103,6 +103,7 @@ class UploadedFile(
             download_hash='%032x' % random.getrandbits(256),
             filestack_status=status,
             filestack_url=url,
+            created_by=user,
         )
         new_version.save()
 
