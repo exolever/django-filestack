@@ -1,27 +1,40 @@
 # Config file for automatic testing at travis-ci.org
+sudo: false
 
 language: python
 
-python:
-  - "3.6"
+cache: pip
 
-env: 
-  - TOX_ENV=py36-django-111
-  - TOX_ENV=py35-django-111
-  - TOX_ENV=py34-django-111
-  - TOX_ENV=py27-django-111
-  - TOX_ENV=py36-django-20
-  - TOX_ENV=py35-django-20
-  - TOX_ENV=py34-django-20
+python: 3.6
 
 matrix:
   fast_finish: true
 
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+# Addons
+addons:
+  sonarcloud:
+    organization: "openexo"
+
+# install dependencies
 install: pip install -r requirements_test.txt
 
-# command to run tests using coverage, e.g. python setup.py test
-script: tox -e $TOX_ENV
+# run tests on every Python version with tox
+script: 
+  - tox
+  - sonar-scanner
+
+# pypi deployment
+deploy:
+  provider: pypi
+  distributions: "sdist bdist_wheel"
+  twine_version: 1.13.0
+  user: marfyl
+  password: 
+    secure: "BJBrMbhkfR82jHVlRR5z3u80qY5U3TSmRZqY++Ra4EZV1SiW3rf/aCRNo5p4mOnGRBqs4jTiCXHa4EtAMz7G0hWWFbhyjeTYkn/znm0MN/p8UwqnljgJATlV4s3tuAlqvqaD7c5SSmGzCm7okQcXhObQ9lRFVYRhQ2plQsuFlIrADjqe1yntG8ILolcURXjN4imMDHOBpsrE/WxRk/DpCYa84Oe6aAMYCe8+MF92zhziI/gN1/m0SE5KYYC/xX6FoNCVX3Zk56EnZ6ATIaqXVKY8fnT7gCBYIkEydEGxVCAyvBqmfHKYXiihJGdsqr1o7XwgdxGtBfcqS0dsNTXr+APRf8+lO6N58/07iQFhTJLgZV8RwjtUEeGXb4EqdhBCII5sOXucQgntpOic49aOpK9McBvcNok5V+BBMEIeChT1+uFAq1Cq8Hv2dx1ywoFs/qDSU9+PpWRLu5YlPnJGytpMMgVkvKp+XMhUoraZ1GgBKcQM62MAndHiPNzB2qJWbDXd5KRk2WJxDAHya0j2cB9pslQQitf291JX+hCABEjcJJzq5L31JkZR4Zr06sR1ohdoGOIRcdDDnaIKS/re5ypwUp4lN6SuhGgY+b1/Tv/s3OoSXJs+0SAMfWE69FTUh+tTcrKTSoAAMWM039YbRgYreiAK7BcKoVKs5FRML+4="
+  on:
+    tags: true
+    repo: exolever/django-filestack
+    python: 3.6
 
 after_success:
-  - codecov -e TOX_ENV
+  - codecov
