@@ -1,4 +1,5 @@
 # Additional requirements go here
+django-appconf
 django-extensions
 django-model-utils
 factory-boy
