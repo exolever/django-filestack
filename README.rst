@@ -5,11 +5,18 @@ Django Filestack
 .. image:: https://badge.fury.io/py/django-filestack.svg
     :target: https://badge.fury.io/py/django-filestack
 
-.. image:: https://travis-ci.org/tomasgarzon/django-filestack.svg?branch=master
-    :target: https://travis-ci.org/tomasgarzon/django-filestack
+.. image:: https://requires.io/github/exolever/django-filestack/requirements.svg?branch=master
+     :target: https://requires.io/github/exolever/django-filestack/requirements/?branch=master
+     :alt: Requirements Status
 
-.. image:: https://codecov.io/gh/tomasgarzon/django-filestack/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/tomasgarzon/django-filestack
+.. image:: https://travis-ci.org/exolever/django-filestack.svg?branch=master
+    :target: https://travis-ci.org/exolever/django-filestack
+
+.. image:: https://codecov.io/gh/exolever/django-filestack/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/exolever/django-filestack
+    
+.. image:: https://sonarcloud.io/api/project_badges/measure?project=exolever_django-filestack&metric=alert_status
+   :target: https://sonarcloud.io/dashboard?id=exolever_django-filestack
 
 Add Model support for Filestack files
 
