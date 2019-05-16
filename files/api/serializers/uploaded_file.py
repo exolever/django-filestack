@@ -33,7 +33,9 @@ class UploadedFileUpdateSerializer(
         serializers.ModelSerializer):
 
     filestack_status = serializers.ChoiceField(
-        choices=settings.FILES_UPLOADED_FILE_STATUS_CH)
+        choices=settings.FILES_UPLOADED_FILE_STATUS_CH,
+        required=False,
+        allow_null=True)
     url = serializers.URLField()
 
     class Meta:
