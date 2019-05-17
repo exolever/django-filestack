@@ -42,9 +42,9 @@ class UploadedFileVersion(TimeStampedModel):
 
     @property
     def url(self):
-        return '{}/files/versioned/{}'.format(
+        return '{}{}'.format(
             settings.DOMAIN_NAME,
-            self.download_hash,
+            reverse('files:versioned-download', kwargs={'hash': self.download_hash})
         )
 
     @property
