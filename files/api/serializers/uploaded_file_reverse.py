@@ -49,6 +49,7 @@ class UploadedFileRelatedGenericSerializer(serializers.ModelSerializer):
             'iframe',
             'link',
             'order',
+            'mimetype',
         ]
 
     def get_type(self, obj):
