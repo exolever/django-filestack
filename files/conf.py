@@ -77,3 +77,11 @@ class FileConfig(AppConf):
         (UPLOADED_FILE_STATUS_FAILED, 'Failed'),
         (UPLOADED_FILE_STATUS_DISABLED, 'Disabled'),
     )
+
+    VISIBILITY_PRIVATE = 'P'
+    VISIBILITY_GROUP = 'G'
+
+    VISIBILITY_CHOICES = (
+        (VISIBILITY_PRIVATE, 'Private'),
+        (VISIBILITY_GROUP, 'Public with group'),
+    )
