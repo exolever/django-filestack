@@ -14,6 +14,7 @@ from ..serializers import (
     UploadedFileSerializer,
     UploadedFileVersionsSerializer,
     UploadedFileUpdateSerializer,
+    UploadedFileVisibilitySerializer,
 )
 from .uploaded_file_mixin import UploadedFileViewMixin
 
@@ -104,3 +105,9 @@ class UploadedFileVersionDeleteView(DestroyAPIView):
         self.check_object_permissions(self.request, uploaded_file_version)
 
         return uploaded_file_version
+
+
+class UpdateFileVisibilityView(UpdateAPIView):
+    queryset = UploadedFile.objects.all()
+    serializer_class = UploadedFileVisibilitySerializer
+    permission_classes = (IsAuthenticated, )

@@ -11,6 +11,7 @@ from model_utils.models import TimeStampedModel
 
 from ..helpers import UPLOADED_FILE_VERSIONED_MIMETYPE, DEFAULT_MIMETYPE
 from .uploaded_file_version import UploadedFileVersion
+from .uploaded_file_visibility import UploadedFileVisibility
 from .uploaded_file_permission_mixin import UploadedFilePermissionMixin
 
 
@@ -122,3 +123,36 @@ class UploadedFile(
             related_to=related_to,
         )
         return instance
+
+    def create_visibility_relation(self):
+        return UploadedFileVisibility.objects.create(
+            uploaded_file=self,
+            content_type=self.content_type,
+            object_id=self.object_id,
+            related=self.related,
+            created_by=self.created_by)
+
+    def get_visibility_relation(self):
+        return self.visibility.all().last()
+
+    def get_visibility_code(self):
+        visibility = None
+        relation = self.get_visibility_relation()
+
+        if relation:
+            visibility = relation.visibility
+
+        return visibility
+
+    def toggle_visibility(self):
+        relation = self.get_visibility_relation()
+
+        toggle = {
+            settings.FILES_VISIBILITY_PRIVATE: settings.FILES_VISIBILITY_GROUP,
+            settings.FILES_VISIBILITY_GROUP: settings.FILES_VISIBILITY_PRIVATE,
+        }
+        relation.visibility = toggle.get(relation.visibility)
+        relation.save(update_fields=['visibility'])
+
+    def can_change_visibility(self, user_from):
+        return self.created_by is None or user_from == self.created_by

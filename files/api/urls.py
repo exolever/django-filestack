@@ -2,6 +2,8 @@ from django.conf.urls import url
 
 from .views import uploaded_file
 
+app_name = 'files'
+
 
 urlpatterns = [
     url(r'upload-file/(?P<class_name>[a-z]+)/(?P<object_id>\d+)/$',
@@ -13,6 +15,8 @@ urlpatterns = [
     url(r'upload-file/(?P<class_name>[a-z]+)/(?P<object_id>\d+)/(?P<pk>\d+)/(?P<version>\d+)/$',
         uploaded_file.UploadedFileVersionDeleteView.as_view(),
         name='version-delete'),
+    url(r'(?P<pk>\d+)/visibility-toggle/$', uploaded_file.UpdateFileVisibilityView.as_view(),
+        name='visibility-toggle'),
     url(r'(?P<pk>\d+)/$', uploaded_file.UploadedFileRetrieveView.as_view(),
         name='retrieve'),
 ]

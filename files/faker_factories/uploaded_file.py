@@ -1,5 +1,5 @@
 import factory
-from factory import django, fuzzy
+from factory import django
 from faker import Faker
 
 from ..conf import settings
@@ -13,8 +13,19 @@ class FakeUploadedFileFactory(django.DjangoModelFactory):
     class Meta:
         model = UploadedFile
 
-    status = fuzzy.FuzzyChoice(
-        [x[0] for x in settings.FILES_UPLOADED_FILE_STATUS_CH],
-    )
     filename = factory.LazyAttribute(lambda x: faker.word())
     mimetype = factory.LazyAttribute(lambda x: faker.mime_type())
+
+    @classmethod
+    def create(cls, **kwargs):
+        """Create an instance of the associated class, with overriden attrs."""
+        visibility = kwargs.pop('visibility', [])
+
+        instance = super().create(**kwargs)
+
+        if visibility:
+            visibility_related = instance.get_visibility_relation()
+            visibility_related.visibility = visibility
+            visibility_related.save(update_fields=['visibility'])
+
+        return instance

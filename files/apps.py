@@ -5,4 +5,5 @@ class FilesConfig(AppConfig):
     name = 'files'
 
     def ready(self):
-        pass
+        from .signals import setup_signals
+        setup_signals()

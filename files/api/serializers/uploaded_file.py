@@ -62,3 +62,23 @@ class UploadedFileVersionsSerializer(
         data['versions'] = self.get_versions(obj)
 
         return data
+
+
+class UploadedFileVisibilitySerializer(serializers.ModelSerializer):
+    visibility = serializers.CharField(source='get_visibility_code', read_only=True)
+
+    class Meta:
+        model = UploadedFile
+        fields = ['visibility']
+
+    def validate(self, attrs):
+        user_from = self.context.get('request').user
+        instance = self.context.get('view').get_object()
+        assignment_step = instance.related
+        version = instance.latest
+        assignment_step.can_update_uploaded_file(user_from, version, raise_exception=True)
+        return attrs
+
+    def update(self, instance, validated_data):
+        instance.toggle_visibility()
+        return instance
