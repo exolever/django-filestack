@@ -40,18 +40,7 @@ class UploadedFileCreateView(UploadedFileViewMixin, CreateAPIView):
 
     def perform_create(self, serializer):
         related_instance = self.validate_uploaded_file(serializer, self.kwargs)
-
-        filestack_url = serializer.validated_data.pop('url')
-        filestack_status = serializer.validated_data.pop('filestack_status')
-        instance = serializer.save()
-
-        instance.create_version(
-            url=filestack_url,
-            status=filestack_status,
-            user=self.request.user,
-            related_to=related_instance,
-        )
-        instance.link_file(related_instance)
+        return serializer.save(related_to=related_instance)
 
 
 class UploadedFileDeleteUpdateView(

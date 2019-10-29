@@ -27,6 +27,15 @@ class UploadedFileSerializer(
         model = UploadedFile
         fields = ['filestack_status', 'filename', 'mimetype', 'url']
 
+    def create(self, validated_data):
+        return UploadedFile.create(
+            self.context.get('request').user,
+            validated_data.get('filename'),
+            validated_data.get('mimetype'),
+            validated_data.get('url'),
+            validated_data.get('filestack_status'),
+            validated_data.get('related_to'))
+
 
 class UploadedFileUpdateSerializer(
         UploadedFileToRepresentationMix,
