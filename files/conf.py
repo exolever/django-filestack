@@ -85,3 +85,5 @@ class FileConfig(AppConf):
         (VISIBILITY_PRIVATE, 'Private'),
         (VISIBILITY_GROUP, 'Public with group'),
     )
+
+    USER_SERIALIZER = 'files.api.serializers.user.UserSerializer'

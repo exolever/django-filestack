@@ -10,7 +10,7 @@ from .uploaded_file_reverse import UploadedFileRelatedGenericSerializer
 class UploadedFileToRepresentationMix:
 
     def to_representation(self, obj):
-        return UploadedFileRelatedGenericSerializer(obj).data
+        return UploadedFileRelatedGenericSerializer(obj, context=self.context).data
 
 
 class UploadedFileSerializer(

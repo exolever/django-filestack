@@ -1,6 +1,9 @@
 from rest_framework import serializers
 
+from django.conf import settings
+
 from ...models import UploadedFile
+from ...utils import factory
 
 
 class UploadedFileGenericReverseSerializerMixin(serializers.Serializer):
@@ -36,6 +39,9 @@ class UploadedFileRelatedGenericSerializer(serializers.ModelSerializer):
     iframe = serializers.SerializerMethodField()
     link = serializers.SerializerMethodField()
     order = serializers.SerializerMethodField()
+    created_by = serializers.SerializerMethodField()
+    visibility = serializers.CharField(source='get_visibility_code')
+    can_change_visibility = serializers.SerializerMethodField()
 
     class Meta:
         model = UploadedFile
@@ -50,6 +56,9 @@ class UploadedFileRelatedGenericSerializer(serializers.ModelSerializer):
             'link',
             'order',
             'mimetype',
+            'created_by',
+            'visibility',
+            'can_change_visibility',
         ]
 
     def get_type(self, obj):
@@ -75,3 +84,12 @@ class UploadedFileRelatedGenericSerializer(serializers.ModelSerializer):
 
     def get_order(self, obj):
         return ''
+
+    def get_can_change_visibility(self, obj):
+        user_from = self.context.get('request').user
+        return obj.can_change_visibility(user_from)
+
+    def get_created_by(self, obj):
+        class_name = settings.FILES_USER_SERIALIZER
+        user_serializer = factory(class_name, instance=obj.created_by, context=self.context)
+        return user_serializer.data
